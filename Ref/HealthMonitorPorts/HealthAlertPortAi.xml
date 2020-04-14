@@ -1,0 +1,8 @@
+<interface name="HealthAlert" namespace="Ref">
+    <args>
+        <arg name="enterSafeMode" type="U32">
+		</arg>
+        <arg name="sourceComponent" type="U32">
+		</arg>
+    </args>
+</interface>

@@ -1,0 +1,6 @@
+<interface name="TempManagerReq" namespace="Ref">
+    <args>
+        <arg name="request" type="F32">
+		</arg>
+    </args>
+</interface>

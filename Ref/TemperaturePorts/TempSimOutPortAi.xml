@@ -1,0 +1,9 @@
+<interface name="TempSimOut" namespace="Ref">
+    <comment>
+    Port to return the current temperature
+    </comment>
+    <args>
+        <arg name="temperature" type="F32">
+        </arg>
+    </args>
+</interface>

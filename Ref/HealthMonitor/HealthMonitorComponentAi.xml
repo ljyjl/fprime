@@ -1,0 +1,65 @@
+<component name="HealthMonitor" kind="active" namespace="Ref">
+    <import_port_type>Ref/HealthMonitorPorts/HealthTempReqPortAi.xml</import_port_type>
+    <import_port_type>Ref/HealthMonitorPorts/HealthTempCheckPortAi.xml</import_port_type>
+    <import_port_type>Svc/Sched/SchedPortAi.xml</import_port_type>
+    <import_port_type>Ref/HealthMonitorPorts/HealthAlertPortAi.xml</import_port_type>
+    <import_port_type>Ref/SchedulerPorts/SchedHealthPhasePortAi.xml</import_port_type>
+    <import_port_type>Ref/SchedulerPorts/SchedHealthThreshPortAi.xml</import_port_type>
+
+    <ports>
+        <port name="tempIn" data_type="Ref::HealthTempCheck" kind="async_input">
+        </port>
+        <port name="phaseIn" data_type="Ref::SchedHealthPhase" kind="async_input">
+        </port>
+        <port name="threshIn" data_type="Ref::SchedHealthThresh" kind="async_input">
+        </port>
+        <port name="healthTempReqOut" data_type="Ref::HealthTempReq" kind="output">
+        </port>
+        <port name="healthAlertOut" data_type="Ref::HealthAlert" kind="output">
+        </port>
+        <port name="SchedIn" data_type="Sched" kind="async_input">
+        </port>
+    </ports>
+    <telemetry>
+        <channel id="0" name="HEALTH_MONITOR_CURR_PHASE" data_type="U32">
+        </channel>
+        <channel id="1" name="HEALTH_MONITOR_LAST_TEMP" data_type="F32">
+        </channel>
+    </telemetry>
+    <events>
+        <event id="0" name="HEALTH_MONITOR_TEMP_CRITICAL_HI" severity="WARNING_HI" format_string = "WARNING: CRITICALLY HIGH TEMPERATURE OF %f" >
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>          
+            </args>
+        </event>
+        <event id="1" name="HEALTH_MONITOR_TEMP_CRITICAL_LO" severity="WARNING_HI" format_string = "WARNING: CRITICALLY LOW TEMPERATURE OF %f" >
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>          
+            </args>
+        </event>
+        <event id="2" name="HEALTH_MONITOR_THRESHOLD_CHANGED" severity="ACTIVITY_HI" format_string = "Phase %d now has MIN TEMP of %f and MAX TEMP of %f" >
+            <args>
+                <arg name="phase" type="U32">
+                </arg>   
+                <arg name="minTemp" type="F32">
+                </arg>  
+                <arg name="maxTemp" type="F32">
+                </arg>       
+            </args>
+        </event>
+        <event id="3" name="HEALTH_MONITOR_TEMP_FATAL_HI" severity="WARNING_HI" format_string = "WARNING: FATALLY HIGH TEMPERATURE OF %f, ENTERING SAFETY MODE" >
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>          
+            </args>
+        </event>
+        <event id="4" name="HEALTH_MONITOR_TEMP_FATAL_LO" severity="WARNING_HI" format_string = "WARNING: FATALLY LOW TEMPERATURE OF %f, ENTERING SAFETY MODE" >
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>          
+            </args>
+        </event>
+    </events>
+</component>

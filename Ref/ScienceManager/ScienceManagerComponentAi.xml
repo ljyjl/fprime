@@ -1,0 +1,22 @@
+<component name="ScienceManager" kind="active" namespace="Ref">
+    <import_port_type>Ref/SciencePorts/ScienceManagerReqPortAi.xml</import_port_type>
+    <import_port_type>Ref/SciencePorts/ScienceDriverResPortAi.xml</import_port_type>
+    <import_port_type>Svc/Sched/SchedPortAi.xml</import_port_type>
+    <import_port_type>Ref/GeneralPorts/ActiveStatusPortAi.xml</import_port_type>
+    <ports>
+        <port name="scienceIn" data_type="Ref::ScienceDriverRes" kind="async_input">
+        </port>
+        <port name="activeStatus" data_type="Ref::ActiveStatus" kind="async_input">
+        </port>
+        <port name="scienceManagerReqOut" data_type="Ref::ScienceManagerReq" kind="output">
+        </port>
+        <port name="SchedIn" data_type="Sched" kind="async_input">
+        </port>
+    </ports>
+    <telemetry>
+        <channel id="0" name="SCIENCE_MANAGER_DATA" data_type="F32">
+        </channel>
+        <channel id="1" name="SCIENCE_MANAGER_IS_ENABLED" data_type="F32">
+        </channel>
+    </telemetry>
+</component>

@@ -1,0 +1,6 @@
+<interface name="SchedHealthPhase" namespace="Ref">
+    <args>
+        <arg name="nextPhase" type="U32">
+		</arg>
+    </args>
+</interface>

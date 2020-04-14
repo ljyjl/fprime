@@ -1,0 +1,36 @@
+<component name="TempSim" kind="active" namespace="Ref">
+    <import_port_type>Ref/TemperaturePorts/TempDriverReqPortAi.xml</import_port_type>
+    <import_port_type>Ref/TemperaturePorts/TempSimOutPortAi.xml</import_port_type>
+    <ports>
+        <port name="tempOut" data_type="Ref::TempSimOut" kind="output">
+        </port>
+        <port name="driverReqIn" data_type="Ref::TempDriverReq" kind="async_input">
+        </port>
+    </ports>
+    <commands>
+        <command kind="async" opcode="0" mnemonic="TEMPSIM_SET_TEMP">
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>
+            </args>
+        </command>
+    </commands>
+    <telemetry>
+        <channel id="0" name="TEMPSIM_CURR_TEMP" data_type="F32">
+        </channel>
+    </telemetry>
+    <events>
+        <event id="0" name="TEMPSIM_TEMP_CHANGED" severity="ACTIVITY_HI" format_string="Temperature changed to %f"  >
+            <args>
+                <arg name="newTemp" type="F32">
+                </arg>         
+            </args>
+        </event>
+        <event id="1" name="TEMPSIM_TEMP_REQUESTED" severity="ACTIVITY_LO" format_string = "TempSim received temperature request (%f) from TempDriver" >
+            <args>
+                <arg name="req" type="F32">
+                </arg>          
+            </args>
+        </event>
+    </events>
+</component>

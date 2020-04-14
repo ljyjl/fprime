@@ -1,0 +1,14 @@
+<interface name="ControllerOp" namespace="Ref">
+    <args>
+        <arg name="time" type="F32">
+		</arg>
+        <arg name="op" type="F32">
+		</arg>
+        <arg name="val1" type="F32">
+		</arg>
+        <arg name="val2" type="F32">
+		</arg>
+        <arg name="val3" type="F32">
+		</arg>
+    </args>
+</interface>

@@ -1,0 +1,6 @@
+<interface name="ScienceSimRes" namespace="Ref">
+    <args>
+        <arg name="science" type="F32">
+		</arg>
+    </args>
+</interface>
