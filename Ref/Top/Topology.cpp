@@ -94,6 +94,60 @@ Ref::SignalGen SG4("signalGen4");
 
 Ref::SignalGen SG5("signalGen5");
 
+Ref::TempSimComponentImpl tempSim
+#if FW_OBJECT_NAMES == 1
+    ("tempSim")
+#endif
+;
+
+Ref::TempDriverComponentImpl tempDriver
+#if FW_OBJECT_NAMES == 1
+    ("tempDriver")
+#endif
+;
+
+Ref::TempManagerComponentImpl tempManager
+#if FW_OBJECT_NAMES == 1
+    ("tempManager")
+#endif
+;
+
+Ref::HealthMonitorComponentImpl healthMonitor
+#if FW_OBJECT_NAMES == 1
+    ("healthMonitor")
+#endif
+;
+
+Ref::ScienceSimComponentImpl scienceSim
+#if FW_OBJECT_NAMES == 1
+    ("scienceSim")
+#endif
+;
+
+Ref::ScienceDriverComponentImpl scienceDriver
+#if FW_OBJECT_NAMES == 1
+    ("scienceDriver")
+#endif
+;
+
+Ref::ScienceManagerComponentImpl scienceManager
+#if FW_OBJECT_NAMES == 1
+    ("scienceManager")
+#endif
+;
+
+Ref::ControllerComponentImpl controller
+#if FW_OBJECT_NAMES == 1
+    ("controller")
+#endif
+;
+
+Ref::SchedulerComponentImpl scheduler
+#if FW_OBJECT_NAMES == 1
+    ("scheduler")
+#endif
+;
+
 Svc::AssertFatalAdapterComponentImpl fatalAdapter("fatalAdapter");
 
 Svc::FatalHandlerComponentImpl fatalHandler("fatalHandler");
@@ -154,6 +208,17 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 	fatalHandler.init(0);
 	health.init(25,0);
 	pingRcvr.init(10);
+
+    tempSim.init(10, 0);
+    tempDriver.init(10, 0);
+    tempManager.init(10, 0);
+    healthMonitor.init(10, 0);
+    scienceSim.init(10, 0);
+    scienceDriver.init(10, 0);
+    scienceManager.init(10, 0);
+    controller.init(10, 0);
+    scheduler.init(10, 0);
+
     // Connect rate groups to rate group driver
     constructRefArchitecture();
 
@@ -180,6 +245,10 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 	SG5.regCommands();
 	health.regCommands();
 	pingRcvr.regCommands();
+
+    tempSim.regCommands();
+    tempManager.regCommands();
+    controller.regCommands();
 
     // read parameters
     prmDb.readParamFile();
@@ -227,6 +296,16 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 
     pingRcvr.start(0, 100, 10*1024);
 
+    tempSim.start(0,100,10*1024);
+    tempDriver.start(0,100,10*1024);
+    tempManager.start(0,100,10*1024);
+    healthMonitor.start(0,100,10*1024);
+    scienceSim.start(0,100,10*1024);
+    scienceDriver.start(0,100,10*1024);
+    scienceManager.start(0,100,10*1024);
+    controller.start(0,100,10*1024);
+    scheduler.start(0,100,10*1024);
+
     // Initialize socket server if and only if there is a valid specification
     if (hostname != NULL && port_number != 0) {
         socketIpDriver.startSocketTask(100, 10 * 1024, hostname, port_number);
@@ -246,5 +325,15 @@ void exitTasks(void) {
     fileUplink.exit();
     fileDownlink.exit();
     cmdSeq.exit();
+
+    tempSim.exit();
+    tempDriver.exit();
+    tempManager.exit();
+    healthMonitor.exit();
+    scienceSim.exit();
+    scienceDriver.exit();
+    scienceManager.exit();
+    controller.exit();
+    scheduler.exit();
 }
 

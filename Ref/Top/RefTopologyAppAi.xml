@@ -35,7 +35,26 @@
     <import_component_type>Svc/LinuxTimer/LinuxTimerComponentAi.xml</import_component_type>
     <import_component_type>Drv/SocketIpDriver/SocketIpDriverComponentAi.xml</import_component_type>
 
+     <import_component_type>Ref/TempSim/TempSimComponentAi.xml</import_component_type>
+     <import_component_type>Ref/TempDriver/TempDriverComponentAi.xml</import_component_type>
+     <import_component_type>Ref/TempManager/TempManagerComponentAi.xml</import_component_type>
+     <import_component_type>Ref/HealthMonitor/HealthMonitorComponentAi.xml</import_component_type>
+     <import_component_type>Ref/ScienceSim/ScienceSimComponentAi.xml</import_component_type>
+     <import_component_type>Ref/ScienceDriver/ScienceDriverComponentAi.xml</import_component_type>
+     <import_component_type>Ref/ScienceManager/ScienceManagerComponentAi.xml</import_component_type>
+     <import_component_type>Ref/Controller/ControllerComponentAi.xml</import_component_type>
+     <import_component_type>Ref/Scheduler/SchedulerComponentAi.xml</import_component_type>
+
     <!-- Declare component instances - must match names in Components.hpp -->
+     <instance namespace="Ref" name="tempSim" type="TempSim" base_id="1000"  base_id_window="20" />
+   <instance namespace="Ref" name="tempDriver" type="TempDriver" base_id="1100"  base_id_window="20" />
+   <instance namespace="Ref" name="tempManager" type="TempManager" base_id="1200"  base_id_window="20" />
+     <instance namespace="Ref" name="healthMonitor" type="HealthMonitor" base_id="1300"  base_id_window="20" />
+     <instance namespace="Ref" name="scienceSim" type="ScienceSim" base_id="1400"  base_id_window="20" />
+    <instance namespace="Ref" name="scienceDriver" type="ScienceDriver" base_id="1500"  base_id_window="20" />
+    <instance namespace="Ref" name="scienceManager" type="ScienceManager" base_id="1600"  base_id_window="20" />
+    <instance namespace="Ref" name="controller" type="Controller" base_id="1700"  base_id_window="20" />
+    <instance namespace="Ref" name="scheduler" type="Scheduler" base_id="1800"  base_id_window="20" />
 
     <!-- Core C&DH Components -->
     <instance namespace="Svc" name="cmdDisp" type="CommandDispatcher" base_id="121"  base_id_window="20" />
@@ -881,6 +900,277 @@
     <connection name = "RecvBuffDrv">
          <source component = "blockDrv" port = "BufferOut" type = "DataBuffer" num = "0"/>
          <target component = "recvBuffComp" port = "Data" type = "DataBuffer" num = "0"/>
+    </connection>
+
+    <!-- Command Registration Ports - Registration port number must match dispatch port for each component -->
+
+   <connection name = "TempSimReg">
+        <source component = "tempSim" port = "CmdReg" type = "CmdReg" num = "0"/>
+        <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "20"/>
+   </connection>
+   <connection name = "TempManagerReg">
+        <source component = "tempManager" port = "CmdReg" type = "CmdReg" num = "0"/>
+        <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "22"/>
+   </connection>
+   <connection name = "ControllerReg">
+        <source component = "controller" port = "CmdReg" type = "CmdReg" num = "0"/>
+        <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "24"/>
+   </connection>
+
+    <!-- Command Dispatch Ports - Dispatch port number must match registration port for each component -->
+
+   <connection name = "TempSimDisp">
+        <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "20"/>
+        <target component = "tempSim" port = "CmdDisp" type = "Cmd" num = "0"/>
+   </connection>
+   <connection name = "TempManagerDisp">
+        <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "22"/>
+        <target component = "tempManager" port = "CmdDisp" type = "Cmd" num = "0"/>
+   </connection>
+   <connection name = "ControllerDisp">
+        <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "24"/>
+        <target component = "controller" port = "CmdDisp" type = "Cmd" num = "0"/>
+   </connection>
+   
+    <!-- Command Reply Ports - Go to the same response port on the dispatcher -->
+
+   <connection name = "TempSimReply">
+      <source component = "tempSim" port = "CmdStatus" type = "CmdResponse" num = "0"/>
+      <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
+   </connection>
+   <connection name = "TempManagerReply">
+      <source component = "tempManager" port = "CmdStatus" type = "CmdResponse" num = "0"/>
+      <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
+   </connection>
+   <connection name = "ControllerReply">
+      <source component = "controller" port = "CmdStatus" type = "CmdResponse" num = "0"/>
+      <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
+   </connection>
+
+   <!-- Event Logger Binary Connections -->
+   
+   <connection name = "TempSimLog">
+       <source component = "tempSim" port = "Log" type = "Log" num = "0"/>
+        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
+   </connection>
+   <connection name = "TempDriverLog">
+       <source component = "tempDriver" port = "Log" type = "Log" num = "0"/>
+        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
+   </connection>
+   <connection name = "TempManagerLog">
+       <source component = "tempManager" port = "Log" type = "Log" num = "0"/>
+        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
+   </connection>
+   <connection name = "HealthMonitorLog">
+       <source component = "healthMonitor" port = "Log" type = "Log" num = "0"/>
+        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
+   </connection>
+   <connection name = "ControllerLog">
+       <source component = "controller" port = "Log" type = "Log" num = "0"/>
+        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
+   </connection>
+   <connection name = "SchedulerLog">
+       <source component = "scheduler" port = "Log" type = "Log" num = "0"/>
+        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
+   </connection>
+
+   <!-- Event Logger Text Connections -->
+   
+   <connection name = "TempSimTextLog">
+       <source component = "tempSim" port = "LogText" type = "LogText" num = "0"/>
+        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
+   </connection>
+   <connection name = "TempDriverTextLog">
+       <source component = "tempDriver" port = "LogText" type = "LogText" num = "0"/>
+        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
+   </connection>
+   <connection name = "TempManagerTextLog">
+       <source component = "tempManager" port = "LogText" type = "LogText" num = "0"/>
+        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
+   </connection>
+   <connection name = "HealthMonitorTextLog">
+       <source component = "healthMonitor" port = "LogText" type = "LogText" num = "0"/>
+        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
+   </connection>
+   <connection name = "ControllerTextLog">
+       <source component = "controller" port = "LogText" type = "LogText" num = "0"/>
+        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
+   </connection>
+   <connection name = "SchedulerTextLog">
+       <source component = "scheduler" port = "LogText" type = "LogText" num = "0"/>
+        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
+   </connection>
+
+   <!-- Telemetry Connections -->
+
+   <connection name = "TempSimTextTlm">
+       <source component = "tempSim" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "TempDriverTextTlm">
+       <source component = "tempDriver" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "TempManagerTextTlm">
+       <source component = "tempManager" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "HealthMonitorTextTlm">
+       <source component = "healthMonitor" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "ScienceSimTextTlm">
+       <source component = "scienceSim" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "ScienceDriverTextTlm">
+       <source component = "scienceDriver" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "ScienceManagerTextTlm">
+       <source component = "scienceManager" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+   <connection name = "ControllerTextTlm">
+       <source component = "controller" port = "Tlm" type = "Tlm" num = "0"/>
+        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
+   </connection>
+
+   <!-- Time Connections -->
+
+   <connection name = "TempSimTime">
+       <source component = "tempSim" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "TempDriverTime">
+       <source component = "tempDriver" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "TempManagerTime">
+       <source component = "tempManager" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "HealthMonitorTime">
+       <source component = "healthMonitor" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "ScienceSimTime">
+       <source component = "scienceSim" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "ScienceDriverTime">
+       <source component = "scienceDriver" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "ScienceManagerTime">
+       <source component = "scienceManager" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "ControllerTime">
+       <source component = "controller" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+   <connection name = "SchedulerTime">
+       <source component = "scheduler" port = "Time" type = "Time" num = "0"/>
+        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
+   </connection>
+
+   <!-- TempDriver-TempSim Connection -->
+   <connection name = "TempDriverReqConnection">
+       <source component = "tempDriver" port = "driverReqOut" type = "Ref::TempDriverReq" num = "0"/>
+        <target component = "tempSim" port = "driverReqIn" type = "Ref::TempDriverReq" num = "0"/>
+   </connection>
+   <connection name = "TempSimOutConnection">
+       <source component = "tempSim" port = "tempOut" type = "Ref::TempSimOut" num = "0"/>
+        <target component = "tempDriver" port = "tempIn" type = "Ref::TempSimOut" num = "0"/>
+   </connection>
+
+   <!-- TempManager-TempDriver Connection -->
+   <connection name = "TempManagerReqConnection">
+       <source component = "tempManager" port = "managerReqOut" type = "Ref::TempManagerReq" num = "0"/>
+        <target component = "tempDriver" port = "managerReqIn" type = "Ref::TempManagerReq" num = "0"/>
+   </connection>
+   <connection name = "TempDriverOutConnection">
+       <source component = "tempDriver" port = "tempOut" type = "Ref::TempDriverOut" num = "0"/>
+        <target component = "tempManager" port = "tempIn" type = "Ref::TempDriverOut" num = "0"/>
+   </connection>
+
+   <!-- HealthMonitor-TempDriver Connection -->
+   <connection name = "HealthTempReqConnection">
+       <source component = "healthMonitor" port = "healthTempReqOut" type = "Ref::HealthTempReq" num = "0"/>
+        <target component = "tempManager" port = "healthTempReqIn" type = "Ref::HealthTempReq" num = "0"/>
+   </connection>
+   <connection name = "HealthTempCheckConnection">
+       <source component = "tempManager" port = "tempOut" type = "Ref::HealthTempCheck" num = "0"/>
+        <target component = "healthMonitor" port = "tempIn" type = "Ref::HealthTempCheck" num = "0"/>
+   </connection>
+
+   <!-- ScienceDriver-ScienceSim Connection -->
+   <connection name = "ScienceDriverReqConnection">
+       <source component = "scienceDriver" port = "scienceDriverReqOut" type = "Ref::ScienceDriverReq" num = "0"/>
+        <target component = "scienceSim" port = "scienceDriverReqIn" type = "Ref::ScienceDriverReq" num = "0"/>
+   </connection>
+   <connection name = "ScienceSimResConnection">
+       <source component = "scienceSim" port = "scienceOut" type = "Ref::ScienceSimRes" num = "0"/>
+        <target component = "scienceDriver" port = "scienceIn" type = "Ref::ScienceSimRes" num = "0"/>
+   </connection>
+
+   <!-- ScienceManager-ScienceDriver Connection -->
+   <connection name = "ScienceManagerReqConnection">
+       <source component = "scienceManager" port = "scienceManagerReqOut" type = "Ref::ScienceManagerReq" num = "0"/>
+        <target component = "scienceDriver" port = "scienceManagerReqIn" type = "Ref::ScienceManagerReq" num = "0"/>
+   </connection>
+   <connection name = "ScienceDriverResConnection">
+       <source component = "scienceDriver" port = "scienceOut" type = "Ref::ScienceDriverRes" num = "0"/>
+        <target component = "scienceManager" port = "scienceIn" type = "Ref::ScienceDriverRes" num = "0"/>
+   </connection>
+
+   <!-- Controller-Scheduler Connection -->
+   <connection name = "ControllerOpConnection">
+       <source component = "controller" port = "opOut" type = "Ref::ControllerOp" num = "0"/>
+        <target component = "scheduler" port = "opIn" type = "Ref::ControllerOp" num = "0"/>
+   </connection>
+
+   <!-- HealthMonitor-Controller Connection -->
+   <connection name = "HealthAlertConnection">
+       <source component = "healthMonitor" port = "healthAlertOut" type = "Ref::HealthAlert" num = "0"/>
+        <target component = "controller" port = "healthAlertIn" type = "Ref::HealthAlert" num = "0"/>
+   </connection>
+
+   <!-- Controller-Scheduler Connection -->
+   <connection name = "ActiveStatusConnection">
+       <source component = "scheduler" port = "activeStatusOut" type = "Ref::ActiveStatus" num = "0"/>
+        <target component = "scienceManager" port = "activeStatus" type = "Ref::ActiveStatus" num = "0"/>
+   </connection>
+
+   <!-- Scheduler-HealthMonitor Connection -->
+   <connection name = "SchedHealthPhaseConnection">
+       <source component = "scheduler" port = "phaseOut" type = "Ref::SchedHealthPhase" num = "0"/>
+        <target component = "healthMonitor" port = "phaseIn" type = "Ref::SchedHealthPhase" num = "0"/>
+   </connection>
+
+   <!-- Scheduler-HealthMonitor Connection -->
+   <connection name = "SchedHealthThreshConnection">
+       <source component = "scheduler" port = "threshOut" type = "Ref::SchedHealthThresh" num = "0"/>
+        <target component = "healthMonitor" port = "threshIn" type = "Ref::SchedHealthThresh" num = "0"/>
+   </connection>
+
+   <!-- Scheduler Connection -->
+    <connection name = "TempManagerRG">
+         <source component = "rateGroup1Comp" port = "RateGroupMemberOut" type = "Sched" num = "3"/>
+         <target component = "tempManager" port = "SchedIn" type = "Sched" num = "0"/>
+    </connection>
+    <connection name = "HealthMonitorRG">
+         <source component = "rateGroup1Comp" port = "RateGroupMemberOut" type = "Sched" num = "4"/>
+         <target component = "healthMonitor" port = "SchedIn" type = "Sched" num = "0"/>
+    </connection>
+    <connection name = "ScienceSimRG">
+         <source component = "rateGroup2Comp" port = "RateGroupMemberOut" type = "Sched" num = "4"/>
+         <target component = "scienceSim" port = "SchedIn" type = "Sched" num = "0"/>
+    </connection>
+    <connection name = "ScienceManagerRG">
+         <source component = "rateGroup1Comp" port = "RateGroupMemberOut" type = "Sched" num = "5"/>
+         <target component = "scienceManager" port = "SchedIn" type = "Sched" num = "0"/>
     </connection>
     
 </assembly>
