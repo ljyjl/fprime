@@ -2,10 +2,13 @@
 This is a demonstration of the F Prime flight software framework for the AEGIS satellite. The latest version of the demo was built on a fork from NASA's version 1.3.1 repository for F Prime. This repository contains a working version of the demo with installation instructions in the following sections. If you wish to recreate this demo from scratch, those instructions can be found immediately after the design explanation in this document. Do note that this readme file has replaced the original that comes with F Prime which contains quick reference information. The original readme can be found at [https://github.com/nasa/fprime/tree/NASA-v1.3.1](https://github.com/nasa/fprime/tree/NASA-v1.3.1).
 
 # Table of Contents
-**1. [Installing the Demo](#installing-the-demo) 
-2. [Demo Design](#demo-design) 
-3. [Using the Demo](#using-the-demo) 
-4. [Tutorial](#tutorial)**
+**1. [Installing the Demo](#installing-the-demo)**
+
+**2. [Demo Design](#demo-design)**
+
+**3. [Using the Demo](#using-the-demo)**
+
+**4. [Tutorial](#tutorial)**
 
 # Installing the Demo
 
