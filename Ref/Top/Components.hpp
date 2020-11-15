@@ -35,6 +35,8 @@
 #include <Ref/ScienceManager/ScienceManagerComponentImpl.hpp>
 #include <Ref/Controller/ControllerComponentImpl.hpp>
 #include <Ref/Scheduler/SchedulerComponentImpl.hpp>
+#include <Ref/Thermometer/ThermometerComponentImpl.hpp>
+#include <Ref/ThermalControl/ThermalControlComponentImpl.hpp>
 
 void constructRefArchitecture(void);
 bool constructApp(bool dump, U32 port_number, char* hostname);
@@ -76,5 +78,7 @@ extern Ref::ScienceDriverComponentImpl scienceDriver;
 extern Ref::ScienceManagerComponentImpl scienceManager;
 extern Ref::ControllerComponentImpl controller;
 extern Ref::SchedulerComponentImpl scheduler;
+extern Ref::ThermometerComponentImpl thermometer;
+extern Ref::ThermalControlComponentImpl thermalControl;
 
 #endif

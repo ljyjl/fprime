@@ -1,0 +1,59 @@
+<component name="ThermalControl" kind="active" namespace="Ref">
+    <import_port_type>Svc/Sched/SchedPortAi.xml</import_port_type>
+    <import_port_type>Ref/SubPorts/TemperaturePortAi.xml</import_port_type>
+    <import_port_type>Ref/SubPorts/TemperatureReqPortAi.xml</import_port_type>
+    
+    <telemetry>
+            <channel id="0" name="THERMAL_TEMP" data_type="F32">
+            </channel>
+    </telemetry>
+    <events>
+        <event id="0" name="TC_TEMP_RECV" severity="ACTIVITY_HI" format_string="Temperature of the thermometer is received: %f" >
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>
+            </args>
+        </event>
+        <event id="1" name="TC_UPDATED_TEMP" severity="ACTIVITY_HI" format_string = "Temperature updated to the parameterbase: %f" >
+            <comment>
+            Updated Temperaure
+            </comment>
+            <args>
+                <arg name="temperature" type="F32">
+                </arg>
+            </args>
+        </event>
+    </events>
+    <parameters>
+        <parameter id="0" name="phase" data_type="U32" default="0" set_opcode="0" save_opcode="1">
+            <comment>
+            phase by TC
+            </comment>
+        </parameter>
+         <parameter id="1" name="temperature" data_type="F32" default="50.0" set_opcode="2" save_opcode="3">
+            <comment>
+            Termometer value by TC
+            </comment>
+        </parameter>
+        <parameter id="2" name="minTemp" data_type="F32" default="50.0" set_opcode="4" save_opcode="5">
+            <comment>
+            Threshold min value by TC
+            </comment>
+        </parameter>
+        <parameter id="3" name="maxTemp" data_type="F32" default="100.0" set_opcode="6" save_opcode="7">
+            <comment>
+            Threshold max value  by TC
+            </comment>
+        </parameter>
+    </parameters>
+    
+    <ports>
+        <port name="schedIn" data_type="Svc::Sched"  kind="sync_input">
+        </port>
+        <port name="temperatureIn" data_type="Ref::Temperature"  kind="async_input">
+        </port>
+        <port name="temperatureReqOut" data_type="Ref::TemperatureReq"  kind="output">
+        </port>
+    </ports>
+</component>
+

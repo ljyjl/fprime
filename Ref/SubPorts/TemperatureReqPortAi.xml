@@ -1,0 +1,9 @@
+<interface name="TemperatureReq" namespace="Ref">
+    <comment>
+    Port Type interface arguments.
+    </comment>
+    <args>
+        <arg name="requestTempteratue" type="F32" pass_by="value">
+        </arg>
+    </args>
+</interface>

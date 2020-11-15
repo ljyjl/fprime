@@ -70,7 +70,9 @@ add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/ScienceManager/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/ControllerPorts/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Controller/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Scheduler/")
-
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/SubPorts/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Thermometer/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/ThermalControl/")
 
 # Add Topology subdirectory
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Top/")

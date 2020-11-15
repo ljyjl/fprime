@@ -148,6 +148,18 @@ Ref::SchedulerComponentImpl scheduler
 #endif
 ;
 
+Ref::ThermalControlComponentImpl thermalControl
+#if FW_OBJECT_NAMES == 1
+    ("thermalControl")
+#endif
+;
+
+Ref::ThermometerComponentImpl thermometer
+#if FW_OBJECT_NAMES == 1
+    ("thermometer")
+#endif
+;
+
 Svc::AssertFatalAdapterComponentImpl fatalAdapter("fatalAdapter");
 
 Svc::FatalHandlerComponentImpl fatalHandler("fatalHandler");
@@ -218,6 +230,8 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     scienceManager.init(10, 0);
     controller.init(10, 0);
     scheduler.init(10, 0);
+    thermalControl.init(10, 0);
+    thermometer.init(10, 0);
 
     // Connect rate groups to rate group driver
     constructRefArchitecture();
@@ -249,11 +263,13 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     tempSim.regCommands();
     tempManager.regCommands();
     controller.regCommands();
+    thermometer.regCommands();
 
     // read parameters
     prmDb.readParamFile();
     recvBuffComp.loadParameters();
     sendBuffComp.loadParameters();
+    thermalControl.loadParameters();
 
     // set health ping entries
 
@@ -305,6 +321,8 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     scienceManager.start(0,100,10*1024);
     controller.start(0,100,10*1024);
     scheduler.start(0,100,10*1024);
+    thermalControl.start(0,100,10*1024);
+    thermometer.start(0,100,10*1024);
 
     // Initialize socket server if and only if there is a valid specification
     if (hostname != NULL && port_number != 0) {
@@ -335,5 +353,7 @@ void exitTasks(void) {
     scienceManager.exit();
     controller.exit();
     scheduler.exit();
+    thermalControl.exit();
+    thermometer.exit();
 }
 
