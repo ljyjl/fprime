@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  ThermometerComponentImpl.cpp
-// \author ljyjl
+// \author Leah
 // \brief  cpp file for Thermometer component implementation class
 //
 // \copyright
@@ -73,10 +73,10 @@ namespace Ref {
         F32 temperature
     )
   {
-      this->currentTemp = temperature;
-      this->tlmWrite_THERMO_TEMP(this->currentTemp);
-      this->log_ACTIVITY_HI_TERMO_TEMP_UPDATED(temperature);
-      this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
+    this->currentTemp = temperature;
+    this->tlmWrite_THERMO_TEMP(this->currentTemp);
+    this->log_ACTIVITY_HI_TERMO_TEMP_UPDATED(temperature);
+    this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
   }
 
 } // end namespace Ref

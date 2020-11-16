@@ -1,7 +1,7 @@
 // ======================================================================
-// \title  ControllerComponentImpl.hpp
-// \author aleha
-// \brief  hpp file for Controller component implementation class
+// \title  ModeManagementComponentImpl.hpp
+// \author ljyjl
+// \brief  hpp file for ModeManagement component implementation class
 //
 // \copyright
 // Copyright 2009-2015, by the California Institute of Technology.
@@ -10,15 +10,15 @@
 //
 // ======================================================================
 
-#ifndef Controller_HPP
-#define Controller_HPP
+#ifndef ModeManagement_HPP
+#define ModeManagement_HPP
 
-#include "Ref/Controller/ControllerComponentAc.hpp"
+#include "Ref/ModeManagement/ModeManagementComponentAc.hpp"
 
 namespace Ref {
 
-  class ControllerComponentImpl :
-    public ControllerComponentBase
+  class ModeManagementComponentImpl :
+    public ModeManagementComponentBase
   {
 
     public:
@@ -27,9 +27,9 @@ namespace Ref {
       // Construction, initialization, and destruction
       // ----------------------------------------------------------------------
 
-      //! Construct object Controller
+      //! Construct object ModeManagement
       //!
-      ControllerComponentImpl(
+      ModeManagementComponentImpl(
 #if FW_OBJECT_NAMES == 1
           const char *const compName /*!< The component name*/
 #else
@@ -37,19 +37,16 @@ namespace Ref {
 #endif
       );
 
-      //! Initialize object Controller
+      //! Initialize object ModeManagement
       //!
       void init(
           const NATIVE_INT_TYPE queueDepth, /*!< The queue depth*/
           const NATIVE_INT_TYPE instance = 0 /*!< The instance number*/
       );
 
-      //! Destroy object Controller
+      //! Destroy object ModeManagement
       //!
-      ~ControllerComponentImpl(void);
-
-      private:
-        U32 currPhase;
+      ~ModeManagementComponentImpl(void);
 
     PRIVATE:
 
@@ -57,22 +54,12 @@ namespace Ref {
       // Command handler implementations
       // ----------------------------------------------------------------------
 
-      //! Implementation for CONTROLLER_CHANGE_PHASE command handler
+      //! Implementation for MM_UPDATE_PHASE command handler
       //! 
-      void CONTROLLER_CHANGE_PHASE_cmdHandler(
+      void MM_UPDATE_PHASE_cmdHandler(
           const FwOpcodeType opCode, /*!< The opcode*/
           const U32 cmdSeq, /*!< The command sequence number*/
           U32 phase 
-      );
-
-      //! Implementation for CONTROLLER_CHANGE_TEMP_THRESHOLD command handler
-      //! 
-      void CONTROLLER_CHANGE_TEMP_THRESHOLD_cmdHandler(
-          const FwOpcodeType opCode, /*!< The opcode*/
-          const U32 cmdSeq, /*!< The command sequence number*/
-          U32 phase, 
-          F32 minTemp, 
-          F32 maxTemp 
       );
 
 

@@ -47,11 +47,10 @@ namespace Ref {
       //! Destroy object Thermometer
       //!
       ~ThermometerComponentImpl(void);
-      
-    private:
-          F32 currentTemp = 50;
 
     PRIVATE:
+    private:
+          F32 currentTemp = 50;
 
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined typed input ports

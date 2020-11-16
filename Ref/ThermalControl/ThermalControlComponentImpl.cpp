@@ -70,19 +70,18 @@ namespace Ref {
   {
       this->recvTemp = temperature;
       //this->tlmWrite_THERMAL_TEMP(this->temperature);
-      //this->log_ACTIVITY_HI_TC_TEMP_RECV(temperature);
+      this->log_ACTIVITY_HI_TC_TEMP_RECV(temperature);
   }
 
  void ThermalControlComponentImpl ::
    parameterUpdated(
     FwPrmIdType id /*!< The parameter ID*/
   ) {
-    //tc.loadParameters();
-
+      
     if (id == PARAMID_TEMPERATURE) {
       Fw::ParamValid valid;
       F32 temperature = this->paramGet_temperature(valid);
-      //this->log_ACTIVITY_HI_TC_UPDATED_TEMP(temperature);
+      this->log_ACTIVITY_HI_TC_UPDATED_TEMP(temperature);
     }
 }
 

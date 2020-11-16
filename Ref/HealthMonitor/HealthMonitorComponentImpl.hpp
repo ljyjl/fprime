@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  HealthMonitorComponentImpl.hpp
-// \author aleha
+// \author ljyjl
 // \brief  hpp file for HealthMonitor component implementation class
 //
 // \copyright
@@ -48,52 +48,33 @@ namespace Ref {
       //!
       ~HealthMonitorComponentImpl(void);
 
-      private:
-        bool critWarn;
-        bool fatalWarn;
-        F32 lastTemp;
-        F32 currPhase;
-        // {Deployment, Warmup, Burn, 
-        //  Charge, Comms, Science
-        //  Pre-Disposal, Disposal, SafeMode, GlobalFatal}
-        F32 tempThresholds[10][2] = {{50, 100}, {45, 105}, {55, 95}, 
-                                    {20, 200}, {15, 205}, {25, 195}, 
-                                    {10, 300}, {15, 295}, {0,100}, {0, 1000}};
-
     PRIVATE:
 
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
 
-      //! Handler implementation for tempIn
+      //! Handler implementation for schedIn
       //!
-      void tempIn_handler(
+      void schedIn_handler(
           const NATIVE_INT_TYPE portNum, /*!< The port number*/
-          F32 request 
+          NATIVE_UINT_TYPE context /*!< The call order*/
       );
 
-      //! Handler implementation for phaseIn
-      //!
-      void phaseIn_handler(
-          const NATIVE_INT_TYPE portNum, /*!< The port number*/
-          U32 nextPhase 
-      );
+    PRIVATE:
 
-      //! Handler implementation for threshIn
-      //!
-      void threshIn_handler(
-          const NATIVE_INT_TYPE portNum, /*!< The port number*/
+      // ----------------------------------------------------------------------
+      // Command handler implementations
+      // ----------------------------------------------------------------------
+
+      //! Implementation for HM_UPDATE_TEMP_THRESHOLD command handler
+      //! 
+      void HM_UPDATE_TEMP_THRESHOLD_cmdHandler(
+          const FwOpcodeType opCode, /*!< The opcode*/
+          const U32 cmdSeq, /*!< The command sequence number*/
           U32 phase, 
           F32 minTemp, 
           F32 maxTemp 
-      );
-
-      //! Handler implementation for SchedIn
-      //!
-      void SchedIn_handler(
-          const NATIVE_INT_TYPE portNum, /*!< The port number*/
-          NATIVE_UINT_TYPE context /*!< The call order*/
       );
 
 

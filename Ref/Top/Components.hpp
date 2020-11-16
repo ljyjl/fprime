@@ -26,15 +26,15 @@
 #include <Drv/SocketIpDriver/SocketIpDriverComponentImpl.hpp>
 #include <Svc/GroundInterface/GroundInterface.hpp>
 
-#include <Ref/TempSim/TempSimComponentImpl.hpp>
-#include <Ref/TempDriver/TempDriverComponentImpl.hpp>
-#include <Ref/TempManager/TempManagerComponentImpl.hpp>
-#include <Ref/HealthMonitor/HealthMonitorComponentImpl.hpp>
-#include <Ref/ScienceSim/ScienceSimComponentImpl.hpp>
-#include <Ref/ScienceDriver/ScienceDriverComponentImpl.hpp>
-#include <Ref/ScienceManager/ScienceManagerComponentImpl.hpp>
-#include <Ref/Controller/ControllerComponentImpl.hpp>
-#include <Ref/Scheduler/SchedulerComponentImpl.hpp>
+//#include <Ref/TempSim/TempSimComponentImpl.hpp>
+//#include <Ref/TempDriver/TempDriverComponentImpl.hpp>
+//#include <Ref/TempManager/TempManagerComponentImpl.hpp>
+//#include <Ref/HealthMonitor/HealthMonitorComponentImpl.hpp>
+//#include <Ref/ScienceSim/ScienceSimComponentImpl.hpp>
+//#include <Ref/ScienceDriver/ScienceDriverComponentImpl.hpp>
+//#include <Ref/ScienceManager/ScienceManagerComponentImpl.hpp>
+//#include <Ref/Controller/ControllerComponentImpl.hpp>
+//#include <Ref/Scheduler/SchedulerComponentImpl.hpp>
 #include <Ref/Thermometer/ThermometerComponentImpl.hpp>
 #include <Ref/ThermalControl/ThermalControlComponentImpl.hpp>
 
@@ -69,15 +69,15 @@ extern Ref::SignalGen SG1 , SG2, SG3, SG4, SG5;
 extern Ref::PingReceiverComponentImpl pingRcvr;
 extern Drv::SocketIpDriverComponentImpl socketIpDriver;
 
-extern Ref::TempSimComponentImpl tempSim;
-extern Ref::TempDriverComponentImpl tempDriver;
-extern Ref::TempManagerComponentImpl tempManager;
-extern Ref::HealthMonitorComponentImpl healthMonitor;
-extern Ref::ScienceSimComponentImpl scienceSim;
-extern Ref::ScienceDriverComponentImpl scienceDriver;
-extern Ref::ScienceManagerComponentImpl scienceManager;
-extern Ref::ControllerComponentImpl controller;
-extern Ref::SchedulerComponentImpl scheduler;
+//extern Ref::TempSimComponentImpl tempSim;
+//extern Ref::TempDriverComponentImpl tempDriver;
+//extern Ref::TempManagerComponentImpl tempManager;
+//extern Ref::HealthMonitorComponentImpl healthMonitor;
+//extern Ref::ScienceSimComponentImpl scienceSim;
+//extern Ref::ScienceDriverComponentImpl scienceDriver;
+//extern Ref::ScienceManagerComponentImpl scienceManager;
+//extern Ref::ControllerComponentImpl controller;
+//extern Ref::SchedulerComponentImpl scheduler;
 extern Ref::ThermometerComponentImpl thermometer;
 extern Ref::ThermalControlComponentImpl thermalControl;
 

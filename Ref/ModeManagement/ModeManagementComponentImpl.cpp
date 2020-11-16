@@ -1,7 +1,7 @@
 // ======================================================================
-// \title  TempSimComponentImpl.cpp
-// \author aleha
-// \brief  cpp file for TempSim component implementation class
+// \title  ModeManagementComponentImpl.cpp
+// \author ljyjl
+// \brief  cpp file for ModeManagement component implementation class
 //
 // \copyright
 // Copyright 2009-2015, by the California Institute of Technology.
@@ -11,7 +11,7 @@
 // ======================================================================
 
 
-#include <Ref/TempSim/TempSimComponentImpl.hpp>
+#include <Ref/ModeManagement/ModeManagementComponentImpl.hpp>
 #include "Fw/Types/BasicTypes.hpp"
 
 namespace Ref {
@@ -20,61 +20,46 @@ namespace Ref {
   // Construction, initialization, and destruction
   // ----------------------------------------------------------------------
 
-  TempSimComponentImpl ::
+  ModeManagementComponentImpl ::
 #if FW_OBJECT_NAMES == 1
-    TempSimComponentImpl(
+    ModeManagementComponentImpl(
         const char *const compName
     ) :
-      TempSimComponentBase(compName)
+      ModeManagementComponentBase(compName)
 #else
-    TempSimComponentImpl(void)
+    ModeManagementComponentImpl(void)
 #endif
   {
 
   }
 
-  void TempSimComponentImpl ::
+  void ModeManagementComponentImpl ::
     init(
         const NATIVE_INT_TYPE queueDepth,
         const NATIVE_INT_TYPE instance
     )
   {
-    TempSimComponentBase::init(queueDepth, instance);
+    ModeManagementComponentBase::init(queueDepth, instance);
   }
 
-  TempSimComponentImpl ::
-    ~TempSimComponentImpl(void)
+  ModeManagementComponentImpl ::
+    ~ModeManagementComponentImpl(void)
   {
 
-  }
-
-  // ----------------------------------------------------------------------
-  // Handler implementations for user-defined typed input ports
-  // ----------------------------------------------------------------------
-
-  void TempSimComponentImpl ::
-    driverReqIn_handler(
-        const NATIVE_INT_TYPE portNum,
-        F32 request
-    )
-  {
-    this->tempOut_out(0, this->currTemp);
   }
 
   // ----------------------------------------------------------------------
   // Command handler implementations
   // ----------------------------------------------------------------------
 
-  void TempSimComponentImpl ::
-    TEMPSIM_SET_TEMP_cmdHandler(
+  void ModeManagementComponentImpl ::
+    MM_UPDATE_PHASE_cmdHandler(
         const FwOpcodeType opCode,
         const U32 cmdSeq,
-        F32 temperature
+        U32 phase
     )
   {
-    this->currTemp = temperature;
-    this->tlmWrite_TEMPSIM_CURR_TEMP(this->currTemp);
-    this->log_ACTIVITY_HI_TEMPSIM_TEMP_CHANGED(temperature);
+    // TODO
     this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
   }
 

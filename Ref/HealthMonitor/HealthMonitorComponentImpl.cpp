@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  HealthMonitorComponentImpl.cpp
-// \author aleha
+// \author ljyjl
 // \brief  cpp file for HealthMonitor component implementation class
 //
 // \copyright
@@ -30,10 +30,7 @@ namespace Ref {
     HealthMonitorComponentImpl(void)
 #endif
   {
-    this->lastTemp = 0;
-    this->tlmWrite_HEALTH_MONITOR_LAST_TEMP(this->lastTemp);
-    this->critWarn = false;
-    this->fatalWarn = false;
+
   }
 
   void HealthMonitorComponentImpl ::
@@ -56,79 +53,29 @@ namespace Ref {
   // ----------------------------------------------------------------------
 
   void HealthMonitorComponentImpl ::
-    tempIn_handler(
+    schedIn_handler(
         const NATIVE_INT_TYPE portNum,
-        F32 request
+        NATIVE_UINT_TYPE context
     )
   {
-    this->lastTemp = request;
-    this->tlmWrite_HEALTH_MONITOR_LAST_TEMP(this->lastTemp);
-    int phase = this->currPhase;
-
-    if(this->critWarn == false) {
-      if(this->lastTemp < this->tempThresholds[phase][0]) {
-        this->log_WARNING_HI_HEALTH_MONITOR_TEMP_CRITICAL_LO(this->lastTemp);
-        this->critWarn = true;
-      }
-      if(this->lastTemp > this->tempThresholds[phase][1]) {
-        this->log_WARNING_HI_HEALTH_MONITOR_TEMP_CRITICAL_HI(this->lastTemp);
-        this->critWarn = true;
-      }
-    } else {
-      if(this->lastTemp >= this->tempThresholds[phase][0] && this->lastTemp <= this->tempThresholds[phase][1]) {
-        this->critWarn = false;
-      }
-    }
-
-    if(this->fatalWarn == false) {
-      if(this->lastTemp < this->tempThresholds[9][0]) {
-        this->log_WARNING_HI_HEALTH_MONITOR_TEMP_FATAL_LO(this->lastTemp);
-        this->fatalWarn = true;
-        this->healthAlertOut_out(0, 1, 300);
-      }
-      if(this->lastTemp > this->tempThresholds[9][1]) {
-        this->log_WARNING_HI_HEALTH_MONITOR_TEMP_FATAL_HI(this->lastTemp);
-        this->fatalWarn = true;
-        this->healthAlertOut_out(0, 1, 300);
-      } else {
-        if(this->lastTemp >= this->tempThresholds[9][0] && this->lastTemp <= this->tempThresholds[9][1]) {
-          this->fatalWarn = false;
-      }
-    }
-    }
+    // TODO
   }
 
-  void HealthMonitorComponentImpl ::
-    phaseIn_handler(
-        const NATIVE_INT_TYPE portNum,
-        U32 nextPhase
-    )
-  {
-    this->currPhase = nextPhase;
-    this->tlmWrite_HEALTH_MONITOR_CURR_PHASE(this->currPhase);
-  }
+  // ----------------------------------------------------------------------
+  // Command handler implementations
+  // ----------------------------------------------------------------------
 
   void HealthMonitorComponentImpl ::
-    threshIn_handler(
-        const NATIVE_INT_TYPE portNum,
+    HM_UPDATE_TEMP_THRESHOLD_cmdHandler(
+        const FwOpcodeType opCode,
+        const U32 cmdSeq,
         U32 phase,
         F32 minTemp,
         F32 maxTemp
     )
   {
-    int phaseInt = phase;
-    this->tempThresholds[phaseInt][0] = minTemp;
-    this->tempThresholds[phaseInt][1] = maxTemp;
-    this->log_ACTIVITY_HI_HEALTH_MONITOR_THRESHOLD_CHANGED(phase, minTemp, maxTemp);
-  }
-
-  void HealthMonitorComponentImpl ::
-    SchedIn_handler(
-        const NATIVE_INT_TYPE portNum,
-        NATIVE_UINT_TYPE context
-    )
-  {
-    this->healthTempReqOut_out(0, 1);
+    // TODO
+    this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
   }
 
 } // end namespace Ref

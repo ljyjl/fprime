@@ -1,0 +1,50 @@
+<component name="ModeManagement" kind="active" namespace="Ref" modeler="true">
+    <commands>
+    <command kind="async" opcode="0" mnemonic="MM_UPDATE_PHASE">
+        <args>
+            <arg name="phase" type="U32">
+            </arg>
+        </args>
+    </command>
+    </commands>
+    <telemetry>
+        <channel id="0" name="MM_PHASE" data_type="U32">
+        </channel>
+    </telemetry>
+    <events>
+        <event id="0" name="MM_PHASE_UPDATED" severity="ACTIVITY_HI" format_string = "Phase updated to: %d" >
+            <args>
+                <arg name="phase" type="U32">
+                </arg>
+            </args>
+        </event>
+        <event id="1" name="MM_SAFETY_MODE_ENTERED" severity="WARNING_HI" format_string = "Warning: Enter the safety mode: %d" >
+            <args>
+                <arg name="phase" type="U32">
+                </arg>
+            </args>
+        </event>
+    </events>
+    <parameters>
+        <parameter id="0" name="phase" data_type="U32" default="0" set_opcode="8" save_opcode="9">
+            <comment>
+            phase by MM
+            </comment>
+        </parameter>
+         <parameter id="1" name="temperature" data_type="F32" default="50.0" set_opcode="10" save_opcode="11">
+            <comment>
+            Termometer value by MM
+            </comment>
+        </parameter>
+        <parameter id="2" name="minTemp" data_type="F32" default="50.0" set_opcode="12" save_opcode="13">
+            <comment>
+            Threshold min value by MM
+            </comment>
+        </parameter>
+        <parameter id="3" name="maxTemp" data_type="F32" default="100.0" set_opcode="14" save_opcode="15">
+            <comment>
+            Threshold max value by MM
+            </comment>
+        </parameter>
+     </parameters>
+</component>

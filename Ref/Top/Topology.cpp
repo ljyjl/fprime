@@ -94,59 +94,59 @@ Ref::SignalGen SG4("signalGen4");
 
 Ref::SignalGen SG5("signalGen5");
 
-Ref::TempSimComponentImpl tempSim
-#if FW_OBJECT_NAMES == 1
-    ("tempSim")
-#endif
-;
-
-Ref::TempDriverComponentImpl tempDriver
-#if FW_OBJECT_NAMES == 1
-    ("tempDriver")
-#endif
-;
-
-Ref::TempManagerComponentImpl tempManager
-#if FW_OBJECT_NAMES == 1
-    ("tempManager")
-#endif
-;
-
-Ref::HealthMonitorComponentImpl healthMonitor
-#if FW_OBJECT_NAMES == 1
-    ("healthMonitor")
-#endif
-;
-
-Ref::ScienceSimComponentImpl scienceSim
-#if FW_OBJECT_NAMES == 1
-    ("scienceSim")
-#endif
-;
-
-Ref::ScienceDriverComponentImpl scienceDriver
-#if FW_OBJECT_NAMES == 1
-    ("scienceDriver")
-#endif
-;
-
-Ref::ScienceManagerComponentImpl scienceManager
-#if FW_OBJECT_NAMES == 1
-    ("scienceManager")
-#endif
-;
-
-Ref::ControllerComponentImpl controller
-#if FW_OBJECT_NAMES == 1
-    ("controller")
-#endif
-;
-
-Ref::SchedulerComponentImpl scheduler
-#if FW_OBJECT_NAMES == 1
-    ("scheduler")
-#endif
-;
+//Ref::TempSimComponentImpl tempSim
+//#if FW_OBJECT_NAMES == 1
+//    ("tempSim")
+//#endif
+//;
+//
+//Ref::TempDriverComponentImpl tempDriver
+//#if FW_OBJECT_NAMES == 1
+//    ("tempDriver")
+//#endif
+//;
+//
+//Ref::TempManagerComponentImpl tempManager
+//#if FW_OBJECT_NAMES == 1
+//    ("tempManager")
+//#endif
+//;
+//
+//Ref::HealthMonitorComponentImpl healthMonitor
+//#if FW_OBJECT_NAMES == 1
+//    ("healthMonitor")
+//#endif
+//;
+//
+//Ref::ScienceSimComponentImpl scienceSim
+//#if FW_OBJECT_NAMES == 1
+//    ("scienceSim")
+//#endif
+//;
+//
+//Ref::ScienceDriverComponentImpl scienceDriver
+//#if FW_OBJECT_NAMES == 1
+//    ("scienceDriver")
+//#endif
+//;
+//
+//Ref::ScienceManagerComponentImpl scienceManager
+//#if FW_OBJECT_NAMES == 1
+//    ("scienceManager")
+//#endif
+//;
+//
+//Ref::ControllerComponentImpl controller
+//#if FW_OBJECT_NAMES == 1
+//    ("controller")
+//#endif
+//;
+//
+//Ref::SchedulerComponentImpl scheduler
+//#if FW_OBJECT_NAMES == 1
+//    ("scheduler")
+//#endif
+//;
 
 Ref::ThermalControlComponentImpl thermalControl
 #if FW_OBJECT_NAMES == 1
@@ -221,15 +221,15 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 	health.init(25,0);
 	pingRcvr.init(10);
 
-    tempSim.init(10, 0);
-    tempDriver.init(10, 0);
-    tempManager.init(10, 0);
-    healthMonitor.init(10, 0);
-    scienceSim.init(10, 0);
-    scienceDriver.init(10, 0);
-    scienceManager.init(10, 0);
-    controller.init(10, 0);
-    scheduler.init(10, 0);
+//    tempSim.init(10, 0);
+//    tempDriver.init(10, 0);
+//    tempManager.init(10, 0);
+//    healthMonitor.init(10, 0);
+//    scienceSim.init(10, 0);
+//    scienceDriver.init(10, 0);
+//    scienceManager.init(10, 0);
+//    controller.init(10, 0);
+//    scheduler.init(10, 0);
     thermalControl.init(10, 0);
     thermometer.init(10, 0);
 
@@ -260,9 +260,9 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 	health.regCommands();
 	pingRcvr.regCommands();
 
-    tempSim.regCommands();
-    tempManager.regCommands();
-    controller.regCommands();
+//    tempSim.regCommands();
+//    tempManager.regCommands();
+//    controller.regCommands();
     thermometer.regCommands();
 
     // read parameters
@@ -312,15 +312,15 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 
     pingRcvr.start(0, 100, 10*1024);
 
-    tempSim.start(0,100,10*1024);
-    tempDriver.start(0,100,10*1024);
-    tempManager.start(0,100,10*1024);
-    healthMonitor.start(0,100,10*1024);
-    scienceSim.start(0,100,10*1024);
-    scienceDriver.start(0,100,10*1024);
-    scienceManager.start(0,100,10*1024);
-    controller.start(0,100,10*1024);
-    scheduler.start(0,100,10*1024);
+//    tempSim.start(0,100,10*1024);
+//    tempDriver.start(0,100,10*1024);
+//    tempManager.start(0,100,10*1024);
+//    healthMonitor.start(0,100,10*1024);
+//    scienceSim.start(0,100,10*1024);
+//    scienceDriver.start(0,100,10*1024);
+//    scienceManager.start(0,100,10*1024);
+//    controller.start(0,100,10*1024);
+//    scheduler.start(0,100,10*1024);
     thermalControl.start(0,100,10*1024);
     thermometer.start(0,100,10*1024);
 
@@ -344,15 +344,15 @@ void exitTasks(void) {
     fileDownlink.exit();
     cmdSeq.exit();
 
-    tempSim.exit();
-    tempDriver.exit();
-    tempManager.exit();
-    healthMonitor.exit();
-    scienceSim.exit();
-    scienceDriver.exit();
-    scienceManager.exit();
-    controller.exit();
-    scheduler.exit();
+//    tempSim.exit();
+//    tempDriver.exit();
+//    tempManager.exit();
+//    healthMonitor.exit();
+//    scienceSim.exit();
+//    scienceDriver.exit();
+//    scienceManager.exit();
+//    controller.exit();
+//    scheduler.exit();
     thermalControl.exit();
     thermometer.exit();
 }

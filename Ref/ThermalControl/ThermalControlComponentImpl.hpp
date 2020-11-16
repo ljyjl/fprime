@@ -50,8 +50,7 @@ namespace Ref {
       
     private:
           F32 recvTemp;
-          //ThermalControlComponentImpl tc;
-
+      
     PRIVATE:
 
       // ----------------------------------------------------------------------
