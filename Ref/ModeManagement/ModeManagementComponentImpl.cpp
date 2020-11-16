@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  ModeManagementComponentImpl.cpp
-// \author ljyjl
+// \author Leah
 // \brief  cpp file for ModeManagement component implementation class
 //
 // \copyright
@@ -45,7 +45,7 @@ namespace Ref {
   ModeManagementComponentImpl ::
     ~ModeManagementComponentImpl(void)
   {
-
+      
   }
 
   // ----------------------------------------------------------------------
@@ -59,7 +59,9 @@ namespace Ref {
         U32 phase
     )
   {
-    // TODO
+    this->currentPhase = phase;
+    this->tlmWrite_MM_PHASE(this->currentPhase);
+    this->log_ACTIVITY_HI_MM_PHASE_UPDATED(phase);
     this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
   }
 

@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  ModeManagementComponentImpl.hpp
-// \author ljyjl
+// \author Leah
 // \brief  hpp file for ModeManagement component implementation class
 //
 // \copyright
@@ -47,6 +47,10 @@ namespace Ref {
       //! Destroy object ModeManagement
       //!
       ~ModeManagementComponentImpl(void);
+      
+    private:
+         U32 currentPhase;
+
 
     PRIVATE:
 
