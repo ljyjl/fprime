@@ -26,6 +26,7 @@
 #include <Drv/SocketIpDriver/SocketIpDriverComponentImpl.hpp>
 #include <Svc/GroundInterface/GroundInterface.hpp>
 
+#include <Ref/HealthMonitor/HealthMonitorComponentImpl.hpp>
 #include <Ref/ModeManagement/ModeManagementComponentImpl.hpp>
 #include <Ref/ThermalControl/ThermalControlComponentImpl.hpp>
 #include <Ref/Thermometer/ThermometerComponentImpl.hpp>
@@ -61,6 +62,7 @@ extern Ref::SignalGen SG1 , SG2, SG3, SG4, SG5;
 extern Ref::PingReceiverComponentImpl pingRcvr;
 extern Drv::SocketIpDriverComponentImpl socketIpDriver;
 
+extern Ref::HealthMonitorComponentImpl healthMonitor;
 extern Ref::ModeManagementComponentImpl modeManagement;
 extern Ref::ThermalControlComponentImpl thermalControl;
 extern Ref::ThermometerComponentImpl thermometer;

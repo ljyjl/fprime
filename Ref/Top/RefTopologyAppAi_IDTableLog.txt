@@ -28,7 +28,10 @@ fileDownlinkBufferManag |  401 (0x191)  |          20           |             20
      fileDownlink       |  501 (0x1f5)  |          20           |             20             |               4               |         4        
       textLogger        |  521 (0x209)  |          20           |             20             |             None              |         0        
         cmdSeq          |  541 (0x21d)  |          23           |             60             |              23               |        23        
-    socketIpDriver      |  601 (0x259)  |          20           |            inf.            |             None              |         0        
+    socketIpDriver      |  601 (0x259)  |          20           |            499             |             None              |         0        
+    thermalControl      | 1100 (0x44c)  |          20           |            100             |               8               |         9        
+      thermometer       | 1200 (0x4b0)  |          20           |            100             |               2               |         2        
+    modeManagement      | 1300 (0x514)  |          20           |            inf.            |              16               |         9        
 -------------------------------------------------------------------------------------------------------------------------------------
 | INSTANCE NAME                 - Name of the instance object.                                                                      |
 | BASE ID (HEX)                 - Base ID set for the instance.                                                                     |
