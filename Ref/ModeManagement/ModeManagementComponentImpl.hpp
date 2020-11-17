@@ -65,9 +65,19 @@ namespace Ref {
           const U32 cmdSeq, /*!< The command sequence number*/
           U32 phase 
       );
+      
+    PRIVATE:
 
+      // ----------------------------------------------------------------------
+      // Parameter update implementations
+      // ----------------------------------------------------------------------
+
+      void parameterUpdated(
+          FwPrmIdType id /*!< The parameter ID*/
+      );
 
     };
+
 
 } // end namespace Ref
 

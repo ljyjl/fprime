@@ -560,6 +560,23 @@
          <source component = "sendBuffComp" port = "ParamSet" type = "PrmSet" num = "0"/>
          <target component = "prmDb" port = "setPrm" type = "PrmSet" num = "0"/>
     </connection>
+    <connection name = "ModeManagementPrmGet">
+         <source component = "modeManagement" port = "ParamGet" type = "PrmGet" num = "0"/>
+         <target component = "prmDb" port = "getPrm" type = "PrmGet" num = "0"/>
+    </connection>
+    <connection name = "ThermalControlPrmGet">
+         <source component = "thermalControl" port = "ParamGet" type = "PrmGet" num = "0"/>
+         <target component = "prmDb" port = "getPrm" type = "PrmGet" num = "0"/>
+    </connection>
+    <connection name = "ModeManagementPrmSet">
+         <source component = "modeManagement" port = "ParamSet" type = "PrmSet" num = "0"/>
+         <target component = "prmDb" port = "setPrm" type = "PrmSet" num = "0"/>
+    </connection>
+    <connection name = "ThermalControlPrmSet">
+         <source component = "sendBuffComp" port = "ParamSet" type = "PrmSet" num = "0"/>
+         <target component = "prmDb" port = "setPrm" type = "PrmSet" num = "0"/>
+    </connection>
+ 
 
     <!-- Time Connections -->
 

@@ -65,4 +65,16 @@ namespace Ref {
     this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
   }
 
+ void ModeManagementComponentImpl ::
+    parameterUpdated(
+       FwPrmIdType id /*!< The parameter ID*/
+  ) {
+      
+   if (id == PARAMID_PHASE) {
+     Fw::ParamValid valid;
+     U32 phase = this->paramGet_phase(valid);
+     this->log_ACTIVITY_HI_MM_PHASE_UPDATED(phase);
+   }
+}
+
 } // end namespace Ref
