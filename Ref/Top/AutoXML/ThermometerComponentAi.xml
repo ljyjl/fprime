@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../Autocoders/schema/ISF/component_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<component name="Thermometer" kind="active" namespace="Ref" modeler="true">
+
+    <import_port_type>/TemperatureReqPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdRegPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdResponsePortAi.xml</import_port_type>
+    <import_port_type>Fw/Tlm/TlmPortAi.xml</import_port_type>
+    <import_port_type>Fw/Time/TimePortAi.xml</import_port_type>
+    <import_port_type>Fw/Log/LogPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdPortAi.xml</import_port_type>
+    <import_port_type>Fw/Log/LogTextPortAi.xml</import_port_type>
+    <import_port_type>/TemperaturePortAi.xml</import_port_type>
+    <import_dictionary><commands>
+	<command kind="async" opcode="0" mnemonic="THERMO_SET_TEMP">
+		<args>
+			<arg name="temperature" type="F32">
+			</arg>
+		</args>
+	</command>
+</commands></import_dictionary>
+    <import_dictionary><telemetry>
+	<channel id="0" name="THERMO_TEMP" data_type="F32">
+	</channel>
+	<comment>
+	The temperature of the termometer
+	</comment>
+</telemetry></import_dictionary>
+    <import_dictionary><events>
+	<event id="0" name="TERMO_TEMP_UPDATED" severity="ACTIVITY_HI" format_string="Temperature of the thermometer updated to: %f" >
+		<args>
+			<arg name="temperature" type="F32">
+			</arg>
+		</args>
+	</event>
+	<event id="1" name="TERMO_TEMP_REQ_RECEIVED" severity="ACTIVITY_LO" format_string = "Thermometer received temperature request from ThermalControl: %f" >
+		<args>
+			<arg name="request" type="F32">
+			</arg>
+		</args>
+	</event>
+</events></import_dictionary>
+    <ports>
+    
+
+        <port name="temperatureReqIn" data_type="Sub::TemperatureReq"  kind="async_input"    max_number="1">
+        </port>
+
+        <port name="cmdReg" data_type="Fw::CmdReg"  kind="output" role="CmdRegistration"    max_number="1">
+        </port>
+
+        <port name="cmdStatus" data_type="Fw::CmdResponse"  kind="output" role="CmdResponse"    max_number="1">
+        </port>
+
+        <port name="Tlm" data_type="Fw::Tlm"  kind="output" role="Telemetry"    max_number="1">
+        </port>
+
+        <port name="timeCaller" data_type="Fw::Time"  kind="output" role="TimeGet"    max_number="1">
+        </port>
+
+        <port name="Log" data_type="Fw::Log"  kind="output" role="LogEvent"    max_number="1">
+        </port>
+
+        <port name="cmdDisp" data_type="Fw::Cmd"  kind="input" role="Cmd"    max_number="1">
+        </port>
+
+        <port name="LogText" data_type="Fw::LogText"  kind="output" role="LogTextEvent"    max_number="1">
+        </port>
+
+        <port name="temperatureOut" data_type="Sub::Temperature"  kind="output"    max_number="1">
+        </port>
+    </ports>
+
+</component>

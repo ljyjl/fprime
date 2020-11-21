@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../Autocoders/schema/ISF/component_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<component name="ThermalControl" kind="active" namespace="Ref" modeler="true">
+
+    <import_port_type>Fw/Cmd/CmdResponsePortAi.xml</import_port_type>
+    <import_port_type>Fw/Tlm/TlmPortAi.xml</import_port_type>
+    <import_port_type>Fw/Time/TimePortAi.xml</import_port_type>
+    <import_port_type>Fw/Log/LogPortAi.xml</import_port_type>
+    <import_port_type>/PrmGetPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdRegPortAi.xml</import_port_type>
+    <import_port_type>Fw/Log/LogTextPortAi.xml</import_port_type>
+    <import_port_type>/TemperaturePortAi.xml</import_port_type>
+    <import_port_type>Svc/Sched/SchedPortAi.xml</import_port_type>
+    <import_port_type>/PrmSetPortAi.xml</import_port_type>
+    <import_port_type>/TemperatureReqPortAi.xml</import_port_type>
+    <import_dictionary><parameters>
+	<parameter id="0" name="phase" data_type="U32" default="0" set_opcode="0" save_opcode="1">
+		<comment>
+		phase by TC
+            		</comment>
+        	</parameter>
+ 	<parameter id="1" name="temperature" data_type="F32" default="50.0" set_opcode="2" save_opcode="3">
+		<comment>
+		Termometer value by TC
+            		</comment>
+        	</parameter>
+	<parameter id="2" name="minTemp" data_type="F32" default="50.0" set_opcode="4" save_opcode="5">
+		<comment>
+		Threshold min value by TC
+            		</comment>
+        	</parameter>
+
+	<parameter id="3" name="maxTemp" data_type="F32" default="100.0" set_opcode="6" save_opcode="7">
+		<comment>
+		Threshold max value  by TC
+            		</comment>
+        	</parameter>
+ </parameters>
+
+</import_dictionary>
+    <ports>
+    
+
+        <port name="cmdStatus" data_type="Fw::CmdResponse"  kind="output" role="CmdResponse"    max_number="1">
+        </port>
+
+        <port name="Tlm" data_type="Fw::Tlm"  kind="output" role="Telemetry"    max_number="1">
+        </port>
+
+        <port name="timeCaller" data_type="Fw::Time"  kind="output" role="TimeGet"    max_number="1">
+        </port>
+
+        <port name="Log" data_type="Fw::Log"  kind="output" role="LogEvent"    max_number="1">
+        </port>
+
+        <port name="ParamGet" data_type="PrmGet"  kind="output"    max_number="1">
+        </port>
+
+        <port name="cmdDisp" data_type="Fw::Cmd"  kind="input" role="Cmd"    max_number="1">
+        </port>
+
+        <port name="cmdRef" data_type="Fw::CmdReg"  kind="output" role="CmdRegistration"    max_number="1">
+        </port>
+
+        <port name="LogText" data_type="Fw::LogText"  kind="output" role="LogTextEvent"    max_number="1">
+        </port>
+
+        <port name="temperatureIn" data_type="Sub::Temperature"  kind="async_input"    max_number="1">
+        </port>
+
+        <port name="schedIn" data_type="Svc::Sched"  kind="sync_input"    max_number="1">
+        </port>
+
+        <port name="ParamSet" data_type="PrmSet"  kind="output"    max_number="1">
+        </port>
+
+        <port name="temperatureReqOut" data_type="Sub::TemperatureReq"  kind="output"    max_number="1">
+        </port>
+    </ports>
+
+</component>

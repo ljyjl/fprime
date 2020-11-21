@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../Autocoders/schema/ISF/component_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<component name="HealthMonitor" kind="active" namespace="Ref" modeler="true">
+
+    <import_port_type>Fw/Cmd/CmdRegPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdResponsePortAi.xml</import_port_type>
+    <import_port_type>Fw/Tlm/TlmPortAi.xml</import_port_type>
+    <import_port_type>Fw/Time/TimePortAi.xml</import_port_type>
+    <import_port_type>Fw/Log/LogPortAi.xml</import_port_type>
+    <import_port_type>/PrmGetPortAi.xml</import_port_type>
+    <import_port_type>Fw/Cmd/CmdPortAi.xml</import_port_type>
+    <import_port_type>Fw/Log/LogTextPortAi.xml</import_port_type>
+    <import_port_type>Svc/Sched/SchedPortAi.xml</import_port_type>
+    <import_port_type>/PrmSetPortAi.xml</import_port_type>
+    <import_dictionary><commands>
+	<command kind="async" opcode="0" mnemonic="HM_UPDATE_TEMP_THRESHOLD">
+		<args>
+			<arg name="phase" type="U32">
+			</arg>
+			<arg name="minTemp" type="F32">
+			</arg>
+ 			<arg name="maxTemp" type="F32">
+			</arg>
+		</args>
+	</command>
+</commands></import_dictionary>
+    <import_dictionary><telemetry>
+	<channel id="0" name="HM_PHASE" data_type="U32">
+	</channel>
+	<channel id="0" name="HM_MIN_TEMP" data_type="F32">
+	</channel>
+	<channel id="0" name="HM_MAX_TEMP" data_type="F32">
+	</channel>
+</telemetry></import_dictionary>
+    <import_dictionary><events>
+	<event id="0" name="HM_TEMP_THRESHOLD_UPDATED" severity="ACTIVITY_HI" format_string = "Phase updated to: %d, Min temp updated to: %f,  Max temp updated to: %f" >
+            		<args>
+                			<arg name="phase" type="U32">
+                			</arg>
+                			<arg name="minTemp" type="F32">
+                			</arg>
+                			<arg name="maxTemp" type="F32">
+                			</arg>         
+            		</args>
+        	</event>
+        	<event id="1" name="HM_TEMP_LO_FATAL" severity="FATAL" format_string = "Fatal: Temperature is less than the min temperature: %f" >
+            		<args>
+                			<arg name="temperature" type="F32">
+                			</arg>          
+            		</args>
+	</event>
+	<event id="2" name="HM_TEMP_HI_FATAL" severity="FATAL" format_string = "Fatal: Temperature is higher than the max temperature: %f" >
+            		<args>
+                			<arg name="temperature" type="F32">
+                			</arg>          
+            		</args>
+        	</event>
+    </events></import_dictionary>
+    <import_dictionary><parameters>
+	<parameter id="0" name="phase" data_type="U32" default="0" set_opcode="16" save_opcode="17">
+		<comment>
+		phase by HM
+            		</comment>
+        	</parameter>
+ 	<parameter id="1" name="temperature" data_type="F32" default="50.0" set_opcode="18" save_opcode="19">
+		<comment>
+		Termometer value by HM
+            		</comment>
+        	</parameter>
+
+	<parameter id="2" name="minTemp" data_type="U32" default="50.0" set_opcode="20" save_opcode="21">
+		<comment>
+		Threshold min value by HM
+            		</comment>
+        	</parameter>
+
+	<parameter id="3" name="maxTemp" data_type="U32" default="100.0" set_opcode="22" save_opcode="23">
+		<comment>
+		Threshold max value by HM            		
+		</comment>
+        	</parameter>
+ </parameters>
+
+
+</import_dictionary>
+    <ports>
+    
+
+        <port name="cmdReg" data_type="Fw::CmdReg"  kind="output" role="CmdRegistration"    max_number="1">
+        </port>
+
+        <port name="cmdStatus" data_type="Fw::CmdResponse"  kind="output" role="CmdResponse"    max_number="1">
+        </port>
+
+        <port name="Tlm" data_type="Fw::Tlm"  kind="output" role="Telemetry"    max_number="1">
+        </port>
+
+        <port name="timeCaller" data_type="Fw::Time"  kind="output" role="TimeGet"    max_number="1">
+        </port>
+
+        <port name="Log" data_type="Fw::Log"  kind="output" role="LogEvent"    max_number="1">
+        </port>
+
+        <port name="ParamGet" data_type="PrmGet"  kind="output"    max_number="1">
+        </port>
+
+        <port name="cmdDisp" data_type="Fw::Cmd"  kind="input" role="Cmd"    max_number="1">
+        </port>
+
+        <port name="LogText" data_type="Fw::LogText"  kind="output" role="LogTextEvent"    max_number="1">
+        </port>
+
+        <port name="schedIn" data_type="Svc::Sched"  kind="sync_input"    max_number="1">
+        </port>
+
+        <port name="ParamSet" data_type="PrmSet"  kind="output"    max_number="1">
+        </port>
+    </ports>
+
+</component>
