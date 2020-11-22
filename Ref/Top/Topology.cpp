@@ -94,11 +94,11 @@ Ref::SignalGen SG4("signalGen4");
 
 Ref::SignalGen SG5("signalGen5");
 
-//Ref::HealthMonitorComponentImpl healthMonitor
-//#if FW_OBJECT_NAMES == 1
-//    ("healthMonitor")
-//#endif
-//;
+Ref::HealthMonitorComponentImpl healthMonitor
+#if FW_OBJECT_NAMES == 1
+    ("healthMonitor")
+#endif
+;
 
 Ref::ModeManagementComponentImpl modeManagement
 #if FW_OBJECT_NAMES == 1
@@ -180,7 +180,7 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 	health.init(25,0);
 	pingRcvr.init(10);
 
-//    healthMonitor.init(10, 0);
+    healthMonitor.init(10, 0);
     modeManagement.init(10, 0);
     thermalControl.init(10, 0);
     thermometer.init(10, 0);
@@ -213,14 +213,16 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 	pingRcvr.regCommands();
 
     // regster commands
+    healthMonitor.regCommands();
     modeManagement.regCommands();
+    //thermalControl.regCommands();
     thermometer.regCommands();
 
     // read parameters
     prmDb.readParamFile();
     recvBuffComp.loadParameters();
     sendBuffComp.loadParameters();
-//    healthMonitor.loadParameters();
+    healthMonitor.loadParameters();
     modeManagement.loadParameters();
     thermalControl.loadParameters();
 
@@ -265,7 +267,7 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
 
     pingRcvr.start(0, 100, 10*1024);
 
-//    healthMonitor.start(0,100,10*1024);
+    healthMonitor.start(0,100,10*1024);
     modeManagement.start(0,100,10*1024);
     thermalControl.start(0,100,10*1024);
     thermometer.start(0,100,10*1024);
@@ -290,7 +292,7 @@ void exitTasks(void) {
     fileDownlink.exit();
     cmdSeq.exit();
 
-//    healthMonitor.exit();
+    healthMonitor.exit();
     modeManagement.exit();
     thermalControl.exit();
     thermometer.exit();

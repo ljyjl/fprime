@@ -35,13 +35,13 @@
     <import_component_type>Svc/LinuxTimer/LinuxTimerComponentAi.xml</import_component_type>
     <import_component_type>Drv/SocketIpDriver/SocketIpDriverComponentAi.xml</import_component_type>
 
-    <import_component_type>Ref/HealthMonitor/HealthMonitorComponentAi.xml</import_component_type>
+<!--    <import_component_type>Ref/HealthMonitor/HealthMonitorComponentAi.xml</import_component_type>-->
     <import_component_type>Ref/ModeManagement/ModeManagementComponentAi.xml</import_component_type>
     <import_component_type>Ref/ThermalControl/ThermalControlComponentAi.xml</import_component_type>
     <import_component_type>Ref/Thermometer/ThermometerComponentAi.xml</import_component_type>
 
     <!-- Declare component instances - must match names in Components.hpp -->
-    <instance namespace="Ref" name="healthMonitor" type="HealthMonitor" base_id="1000"  base_id_window="20" />
+<!--    <instance namespace="Ref" name="healthMonitor" type="HealthMonitor" base_id="1000"  base_id_window="20" />-->
     <instance namespace="Ref" name="modeManagement" type="ModeManagement" base_id="1300"  base_id_window="20" />
     <instance namespace="Ref" name="thermalControl" type="ThermalControl" base_id="1100"  base_id_window="20" />
     <instance namespace="Ref" name="thermometer" type="Thermometer" base_id="1200"  base_id_window="20" />
@@ -560,11 +560,6 @@
          <source component = "sendBuffComp" port = "ParamSet" type = "PrmSet" num = "0"/>
          <target component = "prmDb" port = "setPrm" type = "PrmSet" num = "0"/>
     </connection>
-    
-    <connection name = "HealthMonitorPrmGet">
-         <source component = "healthMonitor" port = "ParamGet" type = "PrmGet" num = "0"/>
-         <target component = "prmDb" port = "getPrm" type = "PrmGet" num = "0"/>
-    </connection>
     <connection name = "ModeManagementPrmGet">
          <source component = "modeManagement" port = "ParamGet" type = "PrmGet" num = "0"/>
          <target component = "prmDb" port = "getPrm" type = "PrmGet" num = "0"/>
@@ -572,10 +567,6 @@
     <connection name = "ThermalControlPrmGet">
          <source component = "thermalControl" port = "ParamGet" type = "PrmGet" num = "0"/>
          <target component = "prmDb" port = "getPrm" type = "PrmGet" num = "0"/>
-    </connection>
-    <connection name = "HealthMonitorPrmSet">
-         <source component = "healthMonitor" port = "ParamSet" type = "PrmSet" num = "0"/>
-         <target component = "prmDb" port = "setPrm" type = "PrmSet" num = "0"/>
     </connection>
     <connection name = "ModeManagementPrmSet">
          <source component = "modeManagement" port = "ParamSet" type = "PrmSet" num = "0"/>
@@ -680,7 +671,7 @@
     <connection name = "blockDrvTime">
          <source component = "blockDrv" port = "Time" type = "Time" num = "0"/>
          <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
-    </connection>
+    </connection>    
 
     <!-- Rate Group Connections -->
    
@@ -712,7 +703,7 @@
     <connection name = "Rg2Drv">
         <source component = "rateGroupDriverComp" port = "CycleOut" type = "Cycle" num = "1"/>
         <target component = "rateGroup2Comp" port = "CycleIn" type = "Cycle" num = "0"/>
-    </connection>
+    </connection>      
     <connection name = "Rg2Seq">
          <source component = "rateGroup2Comp" port = "RateGroupMemberOut" type = "Sched" num = "0"/>
          <target component = "cmdSeq" port = "schedIn" type = "Sched" num = "0"/>
@@ -920,10 +911,10 @@
 
     <!-- Command Registration Ports -->
 
-   <connection name = "HealthMonitorReg">
-        <source component = "healthMonitor" port = "CmdReg" type = "CmdReg" num = "0"/>
-        <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "15"/>
-   </connection>
+<!--   <connection name = "HealthMonitorReg">-->
+<!--        <source component = "healthMonitor" port = "CmdReg" type = "CmdReg" num = "0"/>-->
+<!--        <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "15"/>-->
+<!--   </connection>-->
    <connection name = "ModeManagementReg">
         <source component = "modeManagement" port = "CmdReg" type = "CmdReg" num = "0"/>
         <target component = "cmdDisp" port = "compCmdReg" type = "CmdReg" num = "16"/>
@@ -939,10 +930,10 @@
 
     <!-- Command Dispatch Ports -->
 
-    <connection name = "HealthMonitorDisp">
-        <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "15"/>
-        <target component = "healthMonitor" port = "CmdDisp" type = "Cmd" num = "0"/>
-    </connection>
+<!--    <connection name = "HealthMonitorDisp">-->
+<!--        <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "15"/>-->
+<!--        <target component = "healthMonitor" port = "CmdDisp" type = "Cmd" num = "0"/>-->
+<!--    </connection>-->
     <connection name = "ModeManagementDisp">
         <source component = "cmdDisp" port = "compCmdSend" type = "Cmd" num = "16"/>
         <target component = "modeManagement" port = "CmdDisp" type = "Cmd" num = "0"/>
@@ -958,10 +949,10 @@
    
     <!-- Command Reply Ports -->
 
-    <connection name = "HealthMonitorReply">
-        <source component = "healthMonitor" port = "CmdStatus" type = "CmdResponse" num = "0"/>
-        <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
-    </connection>
+<!--    <connection name = "HealthMonitorReply">-->
+<!--        <source component = "healthMonitor" port = "CmdStatus" type = "CmdResponse" num = "0"/>-->
+<!--        <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>-->
+<!--    </connection>-->
     <connection name = "ModeManagementReply">
         <source component = "modeManagement" port = "CmdStatus" type = "CmdResponse" num = "0"/>
         <target component = "cmdDisp" port = "compCmdStat" type = "CmdResponse" num = "0"/>
@@ -978,10 +969,10 @@
 
    <!-- Event Logger Connections -->
    
-   <connection name = "HealthMonitorLog">
-       <source component = "healthMonitor" port = "Log" type = "Log" num = "0"/>
-        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
-   </connection>
+<!--   <connection name = "HealthMonitorLog">-->
+<!--       <source component = "healthMonitor" port = "Log" type = "Log" num = "0"/>-->
+<!--        <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>-->
+<!--   </connection>-->
    <connection name = "ModeManagementLog">
        <source component = "modeManagement" port = "Log" type = "Log" num = "0"/>
         <target component = "eventLogger" port = "LogRecv" type = "Log" num = "0"/>
@@ -997,10 +988,10 @@
 
    <!-- Text Logger Connections -->
 
-   <connection name = "HealthMonitorTextLog">
-       <source component = "healthMonitor" port = "LogText" type = "LogText" num = "0"/>
-        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
-   </connection>
+<!--   <connection name = "HealthMonitorTextLog">-->
+<!--       <source component = "healthMonitor" port = "LogText" type = "LogText" num = "0"/>-->
+<!--        <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>-->
+<!--   </connection>-->
    <connection name = "ModeManagementTextLog">
        <source component = "modeManagement" port = "LogText" type = "LogText" num = "0"/>
         <target component = "textLogger" port = "TextLogger" type = "LogText" num = "0"/>
@@ -1016,10 +1007,10 @@
 
    <!-- Telemetry Connections -->
 
-   <connection name = "HealthMonitorTextTlm">
-       <source component = "healthMonitor" port = "Tlm" type = "Tlm" num = "0"/>
-        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
-   </connection>
+<!--   <connection name = "HealthMonitorTextTlm">-->
+<!--       <source component = "healthMonitor" port = "Tlm" type = "Tlm" num = "0"/>-->
+<!--        <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>-->
+<!--   </connection>-->
    <connection name = "ModeManagementTextTlm">
        <source component = "modeManagement" port = "Tlm" type = "Tlm" num = "0"/>
         <target component = "chanTlm" port = "TlmRecv" type = "Tlm" num = "0"/>
@@ -1035,10 +1026,10 @@
 
    <!-- Time Connections -->
 
-   <connection name = "HealthMonitorTime">
-       <source component = "healthMonitor" port = "Time" type = "Time" num = "0"/>
-        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>
-   </connection>
+<!--   <connection name = "HealthMonitorTime">-->
+<!--       <source component = "healthMonitor" port = "Time" type = "Time" num = "0"/>-->
+<!--        <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>-->
+<!--   </connection>-->
    <connection name = "ModeManagementTime">
        <source component = "modeManagement" port = "Time" type = "Time" num = "0"/>
         <target component = "linuxTime" port = "timeGetPort" type = "Time" num = "0"/>

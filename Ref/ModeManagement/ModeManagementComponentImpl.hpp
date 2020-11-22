@@ -49,8 +49,10 @@ namespace Ref {
       ~ModeManagementComponentImpl(void);
       
     private:
-         U32 currentPhase;
-
+      U32 currentPhase;
+      bool warning;
+      F32 minThresholds[10] = {50, 45, 55, 20, 15, 25, 10, 15, 0, 0};
+      F32 maxThresholds[10] = {100, 105, 95, 200, 205, 195, 300, 295, 100, 1000};
 
     PRIVATE:
 
@@ -65,7 +67,7 @@ namespace Ref {
           const U32 cmdSeq, /*!< The command sequence number*/
           U32 phase 
       );
-      
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -77,7 +79,6 @@ namespace Ref {
       );
 
     };
-
 
 } // end namespace Ref
 

@@ -30,7 +30,7 @@ namespace Ref {
     ModeManagementComponentImpl(void)
 #endif
   {
-
+      this->warning = false;
   }
 
   void ModeManagementComponentImpl ::
@@ -59,22 +59,64 @@ namespace Ref {
         U32 phase
     )
   {
-    this->currentPhase = phase;
-    this->tlmWrite_MM_PHASE(this->currentPhase);
-    this->log_ACTIVITY_HI_MM_PHASE_UPDATED(phase);
-    this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
+      this->currentPhase = phase;
+      this->tlmWrite_MM_PHASE(this->currentPhase);
+      this->log_ACTIVITY_HI_MM_PHASE_UPDATED(phase);
+      this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
   }
 
- void ModeManagementComponentImpl ::
+  void ModeManagementComponentImpl ::
     parameterUpdated(
-       FwPrmIdType id /*!< The parameter ID*/
+      FwPrmIdType id /*!< The parameter ID*/
   ) {
+      this->log_ACTIVITY_LO_MM_PARAMATER_UPDATED(id);
+      Fw::ParamValid valid;
+      U32 phase = 0;
+      F32 temperature = 50.0;
+      F32 minTemp = 50.0;
+      F32 maxTemp = 100.0;
+    
+      switch(id) {
+          case PARAMID_PHASE: {
+              phase = this->paramGet_phase(valid);
+              this->tlmWrite_MM_PARAMETER_PHASE(phase);
+              break;
+          }
+          case PARAMID_TEMPERATURE: {
+              temperature = this->paramGet_temperature(valid);
+              this->tlmWrite_MM_PARAMETER_TEMP(temperature);
+              break;
+          }
+          case PARAMID_MINTEMP: {
+              minTemp = this->paramGet_minTemp(valid);
+              this->tlmWrite_MM_PARAMETER_MIN_TEMP(minTemp);
+              this->minThresholds[phase] = minTemp;
+              break;
+          }
+          case PARAMID_MAXTEMP: {
+              maxTemp = this->paramGet_maxTemp(valid);
+              this->tlmWrite_MM_PARAMETER_MAX_TEMP(maxTemp);
+              this->maxThresholds[phase] = maxTemp;
+              break;
+          }
+      }
       
-   if (id == PARAMID_PHASE) {
-     Fw::ParamValid valid;
-     U32 phase = this->paramGet_phase(valid);
-     this->log_ACTIVITY_HI_MM_PHASE_UPDATED(phase);
-   }
-}
+      if (this->warning == false) {
+          if (temperature < this->minThresholds[phase]) {
+              this->warning = true;
+              this->log_WARNING_HI_MM_SAFETY_MODE_ENTERED(8);
+          }
+          if (temperature > this->maxThresholds[phase]) {
+              this->warning = true;
+              this->log_WARNING_HI_MM_SAFETY_MODE_ENTERED(8);
+          }
+      }
+      else {
+          if (temperature >= this->minThresholds[phase] && temperature <= this->maxThresholds[phase]) {
+              this->warning = false;
+          }
+      }
+  }
+
 
 } // end namespace Ref

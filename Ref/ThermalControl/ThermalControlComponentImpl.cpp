@@ -69,19 +69,37 @@ namespace Ref {
     )
   {
       this->recvTemp = temperature;
-      //this->tlmWrite_THERMAL_TEMP(this->temperature);
+      //this->tlmWrite_THERMAL_TEMP(temperature);
       this->log_ACTIVITY_HI_TC_TEMP_RECV(temperature);
   }
 
- void ThermalControlComponentImpl ::
-   parameterUpdated(
-    FwPrmIdType id /*!< The parameter ID*/
-  ) {
-      
-    if (id == PARAMID_TEMPERATURE) {
-      Fw::ParamValid valid;
-      F32 temperature = this->paramGet_temperature(valid);
-      this->log_ACTIVITY_HI_TC_UPDATED_TEMP(temperature);
+  void ThermalControlComponentImpl ::
+    parameterUpdated(
+        FwPrmIdType id /*!< The parameter ID*/
+    ) {
+    this->log_ACTIVITY_LO_TC_PARAMATER_UPDATED(id);
+    Fw::ParamValid valid;
+    switch(id) {
+        case PARAMID_PHASE: {
+            U32 phase = this->paramGet_phase(valid);
+            this->tlmWrite_TC_PARAMETER_PHASE(phase);
+            break;
+        }
+        case PARAMID_TEMPERATURE: {
+            F32 temperature = this->paramGet_temperature(valid);
+            this->tlmWrite_TC_PARAMETER_TEMP(temperature);
+            break;
+        }
+        case PARAMID_MINTEMP: {
+            F32 minTemp = this->paramGet_minTemp(valid);
+            this->tlmWrite_TC_PARAMETER_MIN_TEMP(minTemp);
+            break;
+        }
+        case PARAMID_MAXTEMP: {
+            F32 maxTemp = this->paramGet_maxTemp(valid);
+            this->tlmWrite_TC_PARAMETER_MAX_TEMP(maxTemp);
+            break;
+        }
     }
 }
 

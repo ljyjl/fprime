@@ -49,8 +49,8 @@ namespace Ref {
       ~ThermalControlComponentImpl(void);
       
     private:
-          F32 recvTemp;
-      
+        F32 recvTemp;
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -68,15 +68,14 @@ namespace Ref {
       //!
       void temperatureIn_handler(
           const NATIVE_INT_TYPE portNum, /*!< The port number*/
-          F32 temperature 
+          F32 temperature
       );
-
       
     PRIVATE:
 
-    // ----------------------------------------------------------------------
-    // Parameter update implementations
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Parameter update implementations
+      // ----------------------------------------------------------------------
 
       void parameterUpdated(
           FwPrmIdType id /*!< The parameter ID*/

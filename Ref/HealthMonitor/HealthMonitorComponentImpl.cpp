@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  HealthMonitorComponentImpl.cpp
-// \author ljyjl
+// \author Leah
 // \brief  cpp file for HealthMonitor component implementation class
 //
 // \copyright
@@ -8,6 +8,7 @@
 // ALL RIGHTS RESERVED.  United States Government Sponsorship
 // acknowledged.
 //
+// Reference: https://github.com/Aleha-C/fprime/tree/AEGIS_Assignment
 // ======================================================================
 
 
@@ -30,7 +31,7 @@ namespace Ref {
     HealthMonitorComponentImpl(void)
 #endif
   {
-
+      this->warning = false;
   }
 
   void HealthMonitorComponentImpl ::
@@ -74,8 +75,64 @@ namespace Ref {
         F32 maxTemp
     )
   {
-    // TODO
-    this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
+      int i = phase;
+      this->minThresholds[i] = minTemp;
+      this->maxThresholds[i] = maxTemp;
+      this->log_ACTIVITY_HI_HM_TEMP_THRESHOLD_UPDATED(phase, minTemp, maxTemp);
+      this->cmdResponse_out(opCode,cmdSeq,Fw::COMMAND_OK);
+  }
+
+  void HealthMonitorComponentImpl ::
+    parameterUpdated(
+      FwPrmIdType id /*!< The parameter ID*/
+  ) {
+      this->log_ACTIVITY_LO_HM_PARAMATER_UPDATED(id);
+      Fw::ParamValid valid;
+      U32 phase = 0;
+      F32 temperature = 50.0;
+      F32 minTemp = 50.0;
+      F32 maxTemp = 100.0;
+    
+      switch(id) {
+          case PARAMID_PHASE: {
+              phase = this->paramGet_phase(valid);
+              this->tlmWrite_HM_PARAMETER_PHASE(phase);
+              break;
+          }
+          case PARAMID_TEMPERATURE: {
+              temperature = this->paramGet_temperature(valid);
+              this->tlmWrite_HM_PARAMETER_TEMP(temperature);
+              break;
+          }
+          case PARAMID_MINTEMP: {
+              minTemp = this->paramGet_minTemp(valid);
+              this->tlmWrite_HM_PARAMETER_MIN_TEMP(minTemp);
+              this->minThresholds[phase] = minTemp;
+              break;
+          }
+          case PARAMID_MAXTEMP: {
+              maxTemp = this->paramGet_maxTemp(valid);
+              this->tlmWrite_HM_PARAMETER_MAX_TEMP(maxTemp);
+              this->maxThresholds[phase] = maxTemp;
+              break;
+          }
+      }
+      
+      if (this->warning == false) {
+          if (temperature < this->minThresholds[phase]) {
+              this->warning = true;
+              this->log_WARNING_LO_HM_TEMP_LO(temperature);
+          }
+          if (temperature > this->maxThresholds[phase]) {
+              this->warning = true;
+              this->log_WARNING_HI_HM_TEMP_HI(temperature);
+          }
+      }
+      else {
+          if (temperature >= this->minThresholds[phase] && temperature <= this->maxThresholds[phase]) {
+              this->warning = false;
+          }
+      }
   }
 
 } // end namespace Ref

@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../Autocoders/schema/ISF/component_schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-
-<component name="HealthMonitor" kind="active" namespace="Ref" modeler="true">
+<component name="HealthMonitor" kind="active" namespace="Ref">
     <import_port_type>Svc/Sched/SchedPortAi.xml</import_port_type>
+   
     <commands>
     <command kind="async" opcode="0" mnemonic="HM_UPDATE_TEMP_THRESHOLD">
         <args>
@@ -18,9 +16,17 @@
     <telemetry>
         <channel id="0" name="HM_PHASE" data_type="U32">
         </channel>
-        <channel id="0" name="HM_MIN_TEMP" data_type="F32">
+        <channel id="1" name="HM_MIN_TEMP" data_type="F32">
         </channel>
-        <channel id="0" name="HM_MAX_TEMP" data_type="F32">
+        <channel id="2" name="HM_MAX_TEMP" data_type="F32">
+        </channel>
+        <channel id="3" name="HM_PARAMETER_PHASE" data_type="U32">
+        </channel>
+        <channel id="4" name="HM_PARAMETER_TEMP" data_type="F32">
+        </channel>
+        <channel id="5" name="HM_PARAMETER_MIN_TEMP" data_type="F32">
+        </channel>
+        <channel id="6" name="HM_PARAMETER_MAX_TEMP" data_type="F32">
         </channel>
     </telemetry>
     <events>
@@ -34,15 +40,27 @@
                 </arg>
             </args>
         </event>
-        <event id="1" name="HM_TEMP_LO_FATAL" severity="FATAL" format_string = "Fatal: Temperature is less than the min temperature: %f" >
+        <event id="1" name="HM_TEMP_LO" severity="WARNING_LO" format_string = "Warning: Temperature is less than the min temperature: %f" >
             <args>
                 <arg name="temperature" type="F32">
                 </arg>
             </args>
         </event>
-        <event id="2" name="HM_TEMP_HI_FATAL" severity="FATAL" format_string = "Fatal: Temperature is higher than the max temperature: %f" >
+        <event id="2" name="HM_TEMP_HI" severity="WARNING_HI" format_string = "Warning: Temperature is higher than the max temperature: %f" >
             <args>
                 <arg name="temperature" type="F32">
+                </arg>
+            </args>
+        </event>
+        <event id="3" name="HM_PARAMATER_UPDATED" severity="ACTIVITY_LO" format_string = "HealthMonitor Parameter id %d was updated" >
+            <comment>
+            Updated Parameter
+            </comment>
+            <args>
+                <arg name="id" type="U32">
+                    <comment>
+                    ID argument
+                    </comment>
                 </arg>
             </args>
         </event>

@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  HealthMonitorComponentImpl.hpp
-// \author ljyjl
+// \author Leah
 // \brief  hpp file for HealthMonitor component implementation class
 //
 // \copyright
@@ -47,6 +47,11 @@ namespace Ref {
       //! Destroy object HealthMonitor
       //!
       ~HealthMonitorComponentImpl(void);
+    
+      private:
+        bool warning;
+        F32 minThresholds[10] = {50, 45, 55, 20, 15, 25, 10, 15, 0, 0};
+        F32 maxThresholds[10] = {100, 105, 95, 200, 205, 195, 300, 295, 100, 1000};
 
     PRIVATE:
 
@@ -76,9 +81,19 @@ namespace Ref {
           F32 minTemp, 
           F32 maxTemp 
       );
+      
+      
+  PRIVATE:
 
+    // ----------------------------------------------------------------------
+    // Parameter update implementations
+    // ----------------------------------------------------------------------
 
-    };
+    void parameterUpdated(
+        FwPrmIdType id /*!< The parameter ID*/
+    );
+
+  };
 
 } // end namespace Ref
 

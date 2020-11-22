@@ -4,7 +4,15 @@
     <import_port_type>Ref/SubPorts/TemperatureReqPortAi.xml</import_port_type>
     
     <telemetry>
-            <channel id="0" name="THERMAL_TEMP" data_type="F32">
+            <channel id="0" name="THERMAL_CONTROP_TEMP" data_type="F32">
+            </channel>
+            <channel id="1" name="TC_PARAMETER_PHASE" data_type="U32">
+            </channel>
+            <channel id="2" name="TC_PARAMETER_TEMP" data_type="F32">
+            </channel>
+            <channel id="3" name="TC_PARAMETER_MIN_TEMP" data_type="F32">
+            </channel>
+            <channel id="4" name="TC_PARAMETER_MAX_TEMP" data_type="F32">
             </channel>
     </telemetry>
     <events>
@@ -14,12 +22,15 @@
                 </arg>
             </args>
         </event>
-        <event id="1" name="TC_UPDATED_TEMP" severity="ACTIVITY_HI" format_string = "Temperature updated to the parameterbase: %f" >
+        <event id="1" name="TC_PARAMATER_UPDATED" severity="ACTIVITY_LO" format_string = "ThermalControl Parameter id %d was updated" >
             <comment>
-            Updated Temperaure
+            Updated Parameter
             </comment>
             <args>
-                <arg name="temperature" type="F32">
+                <arg name="id" type="U32">
+                    <comment>
+                    ID argument
+                    </comment>
                 </arg>
             </args>
         </event>
@@ -56,4 +67,5 @@
         </port>
     </ports>
 </component>
+
 

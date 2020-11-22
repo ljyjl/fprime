@@ -10,6 +10,14 @@
     <telemetry>
         <channel id="0" name="MM_PHASE" data_type="U32">
         </channel>
+        <channel id="1" name="MM_PARAMETER_PHASE" data_type="U32">
+        </channel>
+        <channel id="2" name="MM_PARAMETER_TEMP" data_type="F32">
+        </channel>
+        <channel id="3" name="MM_PARAMETER_MIN_TEMP" data_type="F32">
+        </channel>
+        <channel id="4" name="MM_PARAMETER_MAX_TEMP" data_type="F32">
+        </channel>
     </telemetry>
     <events>
         <event id="0" name="MM_PHASE_UPDATED" severity="ACTIVITY_HI" format_string = "Phase updated to: %d" >
@@ -21,6 +29,18 @@
         <event id="1" name="MM_SAFETY_MODE_ENTERED" severity="WARNING_HI" format_string = "Warning: Enter the safety mode: %d" >
             <args>
                 <arg name="phase" type="U32">
+                </arg>
+            </args>
+        </event>
+        <event id="2" name="MM_PARAMATER_UPDATED" severity="ACTIVITY_LO" format_string = "ModeManagement Parameter id %d was updated" >
+            <comment>
+            Updated Parameter
+            </comment>
+            <args>
+                <arg name="id" type="U32">
+                    <comment>
+                    ID argument
+                    </comment>
                 </arg>
             </args>
         </event>
